@@ -2,44 +2,35 @@
 # Implement methods to add accounts, deposit money, withdraw money, and check balances.
 
 class BankAccount
-	attr_accessor :account_number, :balance, :accounts
-	def initialize #(account_number, balance)
+	attr_accessor :account_number, :balance
+	def initialize(account_number, balance)
 		@account_number = account_number
 		@balance = balance
-		@accounts = {}
 	end
 
-	def add_bank_accounts(account_numbers, balances)
-		@accounts["account_number"] = account_numbers
-		@accounts["balance"] = balances
+	def tranfer_money(amount, otheraccount)
+		after_transfer = @balance - amount
+		puts "amount to transfer is RM #{amount}"
+		puts "balance after transfer is RM #{after_transfer}"
+		new_balance = amount + otheraccount.balance
+		puts "balance after receive #{new_balance}"
 	end
 
-	def display_account_info
-		@accounts.each do |key, value|
-			puts "#{key}: #{value}"
-		end
-    end
-
-    def subtract_balance(other_account, key)
-		value1 = @accounts[key]
-		value2 = other_account.accounts[key]
-		if value1 && value2
-		    difference = value1 - value2
-		    puts difference
-		else
-		    puts "One or both values are nil."
-		end
+	def add_money(amount)
+		total_balance = amount + @balance
+		puts "New balance after deposit #{total_balance}"
 	end
+
+	def withdraw_money(amount)
+		total_balance = @balance - amount
+		puts "New balance after withdraw is RM #{total_balance}"
+	end
+
+	
 end
 
-
-bank_account1 = BankAccount.new
-bank_account1.add_bank_accounts(12349999, 20.55)
-bank_account1.display_account_info
-
-bank_account2 = BankAccount.new
-bank_account2.add_bank_accounts(43216666, 50.55)
-bank_account2.display_account_info
-
-bank_account1.subtract_balance(bank_account2, @balance)
-puts bank_account1
+account1 = BankAccount.new(1234, 100)
+account2 = BankAccount.new(4321, 55)
+account1.tranfer_money(50, account2)
+account1.add_money(200)
+account2.withdraw_money(20)
